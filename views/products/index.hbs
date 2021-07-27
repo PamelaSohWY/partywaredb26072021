@@ -1,0 +1,72 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+
+<h1>Products</h1>
+
+<h2>Search for Product</h2>
+<form method="GET">
+    {{{form}}}
+    <input type="submit" value="Search" class="btn btn-primary my-3"/>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Cost</th>
+            <th>Description</th>
+            <th>Tags</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+    </thead>
+    {{#each products}}
+    <tr>
+        <td>
+            {{this.id}}
+        </td>
+        <td>
+            {{this.name}}
+        </td>
+        <td>
+            {{this.category.name}}
+        </td>
+
+        <td>
+            {{this.cost}}
+        </td>
+        <td>
+            {{this.description}}
+        </td>
+        <td>
+            {{#each this.tags}}
+                <span class="badge bg-primary">
+                    {{this.name}}
+                </span>
+            {{/each}}
+        </td>
+        <td>
+            {{#if this.image_url}}
+            <img src="{{this.image_url}}" class="img-fluid"/>
+            {{/if}}
+        </td>
+
+        <td>
+            <a href='/products/{{this.id}}/update' class="btn btn-primary btn-sm">Edit</a>
+            <a href='/products/{{this.id}}/delete' class="btn btn-danger btn-sm">Delete</a>
+            <a href="/shoppingCart/{{this.id}}/add" class="btn btn-success btn-sm">Add to Cart</a>
+        </td>
+
+    </tr>
+
+    {{/each}}
+
+</table>
+
+{{/block}}
+
+{{/extends}}
